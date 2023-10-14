@@ -51,7 +51,7 @@
 		<dependency>
 			<groupId>at.favre.lib</groupId>
 			<artifactId>bcrypt</artifactId>
-			<version>0.10.12</version>
+			<version>0.9.0</version>
 		</dependency>
 
 
