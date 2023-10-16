@@ -22,8 +22,7 @@ public class FilterTaskAuth extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String path = request.getServletPath();
-        System.out.println(path);
-        if (!path.equals("/tasks")) {
+        if (!path.startsWith("/tasks")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -41,6 +40,7 @@ public class FilterTaskAuth extends OncePerRequestFilter {
         } else {
             BCrypt.Result passwordVerified = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
             if (passwordVerified.verified) {
+                request.setAttribute("userId", user.getId());
                 filterChain.doFilter(request, response);
             } else {
                 response.sendError(401, "user not found");
